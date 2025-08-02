@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Learn to Fly</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Play Learn to Fly online for free. Launch a determined penguin, earn coins, unlock upgrades, and soar farther each run. Unblocked fun. No downloads, no login." />
+  <style>
+    :root { --bar-h: 56px; --bg: #0b0f14; --ink:#e7eef7; --muted:#9bb0c3; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--ink); font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    header { position: sticky; top: 0; z-index: 10; height: var(--bar-h); background: #111925; border-bottom: 1px solid #1e2a38; display: flex; align-items: center; padding: 0 10px; gap: 10px; }
+    nav a { display:inline-flex; align-items:center; gap:8px; height: 36px; padding: 0 12px; border-radius: 8px; text-decoration: none; color: var(--muted); border: 1px solid transparent; }
+    nav a:hover { color: #fff; border-color: #223246; }
+    nav a.active { color: #fff; background: #18314d; border-color: #284b72; }
+    .spacer { flex: 1; }
+    button.fullscreen { height: 36px; min-width: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #2a3f59; background: #17314c; color: #fff; cursor: pointer; }
+    button.fullscreen:hover { background: #214769; }
+    #player-wrap { position: relative; height: calc(100vh - var(--bar-h)); }
+    #player { width: 100%; height: 100%; border: 0; display:block; background:#000; }
+    .overlay-btn { position:absolute; right:10px; top:10px; opacity:.9 }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  </style>
+  <script src="ruffle.js"></script>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="learn-to-fly.html" class="active">Learn to Fly</a>
+      <a href="learn-to-fly-2.html">Learn to Fly 2</a>
+      <a href="index.html">Learn to Fly 3</a>
+    </nav>
+    <div class="spacer"></div>
+    <button class="fullscreen" id="fs-top">Fullscreen</button>
+  </header>
+
+  <main id="player-wrap">
+    <object id="player"
+      data="https://www.gcsgames.com/wp-content/uploads/games/custom/L/learn-to-fly-37895ed4.swf"
+      type="application/x-shockwave-flash">
+      <param name="wmode" value="direct" />
+      <param name="allowScriptAccess" value="never" />
+      <param name="allowNetworking" value="internal" />
+      <div style="padding:20px;color:#c8d6e5">This game uses Ruffle to run Flash content. If it doesn’t start, make sure <strong>ruffle.js</strong> is in the same folder.</div>
+    </object>
+    <button class="fullscreen overlay-btn" id="fs-overlay" aria-label="Toggle Fullscreen">
+      ⛶ <span class="sr-only">Toggle Fullscreen</span>
+    </button>
+  </main>
+
+  <script>
+    (function () {
+      const wrap = document.getElementById('player-wrap');
+      const btnTop = document.getElementById('fs-top');
+      const btnOverlay = document.getElementById('fs-overlay');
+      function toggleFS() {
+        if (!document.fullscreenElement) {
+          (wrap.requestFullscreen || wrap.webkitRequestFullscreen || wrap.msRequestFullscreen).call(wrap);
+        } else {
+          (document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen).call(document);
+        }
+      }
+      btnTop.addEventListener('click', toggleFS);
+      btnOverlay.addEventListener('click', toggleFS);
+      document.addEventListener('fullscreenchange', () => {
+        btnTop.textContent = document.fullscreenElement ? 'Exit Fullscreen' : 'Fullscreen';
+      });
+    })();
+  </script>
+  <noscript>This page requires JavaScript for the fullscreen button and Ruffle.</noscript>
+</body>
+</html>
